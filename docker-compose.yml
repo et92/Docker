@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+ubuntu:
+  image: ubuntu:latest
+  tty: true
+  ports:
+      - "8080:80"
+networks:
+      - container-net
+      volumes:
+       - type: volume 
+         source: mytest
+         target: /test
+ubuntu:  
+      image: ubuntu:latest
+      command: tail -F anything
+      ports:
+       - "8668:9999"
+      volumes: 
+       - type: volume 
+         source: mytest
+         target: /test
+       - type: bind
+         source: /home/et007/Desktop/Redes e Serviços Telemáticos/2 Semestre/Virtualização de Redes 
+       target: /test2
+networks:
+       - container-net
+volumes: 
+  mytest: 
+  networks:
+    container-net:
+
+  driver: bridge  
